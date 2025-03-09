@@ -2,6 +2,7 @@ from streamlit_folium import folium_static
 import folium
 import streamlit as st
 import pandas as pd
+import os
 
 @st.cache_data  
 def load_data(path):
@@ -9,9 +10,23 @@ def load_data(path):
     return df
 
 # Load data
-pesanan = load_data("../data/data_pesanan_Brazilian_E-Commerce.csv")
-lokasi_pelanggan = load_data("../data/lokasi_pelanggan.csv")
-lokasi_penjual = load_data("../data/lokasi_penjual.csv")
+import os
+
+# Dapatkan path dasar (folder tempat script ini berada)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "../data")  # Folder data
+
+# Fungsi untuk memuat data dengan path yang lebih fleksibel
+def load_data(file_name):
+    file_path = os.path.join(DATA_DIR, file_name)  # Gabungkan path
+    return pd.read_csv(file_path)  # Load CSV
+
+# Load semua dataset
+pesanan = load_data("data_pesanan_Brazilian_E-Commerce.csv")
+lokasi_pelanggan = load_data("lokasi_pelanggan.csv")
+lokasi_penjual = load_data("lokasi_penjual.csv")
+
+
 lokasi_pelanggan_view=lokasi_pelanggan.head(1000)
 lokasi_penjual_view=lokasi_penjual.head(3500)
 
