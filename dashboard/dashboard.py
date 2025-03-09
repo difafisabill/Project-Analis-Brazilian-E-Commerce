@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 import os
 
+
 @st.cache_data  
 def load_data(path):
     df = pd.read_csv(path)
@@ -132,6 +133,16 @@ st.dataframe(
     height=300
 )
 
+import streamlit as st
+import pandas as pd
+import altair as alt
+
+# Contoh data lokasi_pelanggan
+data = {
+    "customer_state": ["SP", "RJ", "MG", "RS", "PR"],
+    "customer_unique_id": ["id1", "id2", "id3", "id4", "id5"]
+}
+lokasi_pelanggan = pd.DataFrame(data)
 # ========== DOWNLOAD BUTTON ==========
 st.download_button(
     label="Download Data Filtered",
